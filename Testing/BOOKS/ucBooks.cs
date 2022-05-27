@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-
+using Microsoft.WindowsAPICodePack.Dialogs;
 namespace Testing.BOOKS
 {
     public partial class ucBooks : UserControl
@@ -90,7 +91,41 @@ namespace Testing.BOOKS
         public static int book_id;
         public static string title, author, desc, cat;
         public static string barcode_num, year, publisher;
-        
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (txtSelectedBook.Text.Equals(""))
+            {
+                MessageBox.Show(this, "Please select book first", "Book", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                //Choosing Directory
+                CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+                dialog.InitialDirectory = "C:\\Users";
+                dialog.IsFolderPicker = true;
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    DialogResult result = MessageBox.Show("You are about to download the E-book file of the selected book. Proceed?", "Confirmation", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        sql.Query($"SELECT pdf_file FROM books_tb WHERE title= '{txtSelectedBook.Text}' ");
+                        if (sql.HasException(true)) return;
+                        if (sql.DBDT.Rows.Count > 0)
+                        {
+                            foreach (DataRow dr in sql.DBDT.Rows)
+                            {
+                                byte[] fileData = (byte[])dr[0];
+                                String path = dialog.FileName + "\\" + txtSelectedBook.Text + ".pdf";
+                                File.WriteAllBytes(path, fileData);
+                                MessageBox.Show(this, "Successfully Downloaded E-Book File.", "Download E-Book", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void btnupdate_Click(object sender, EventArgs e)
         {
             using (BOOKS.ADD_BOOK frm = new BOOKS.ADD_BOOK("Update","","",3))
@@ -120,6 +155,7 @@ namespace Testing.BOOKS
                 year = listView1.SelectedItems[0].SubItems[7].Text;
                 publisher = listView1.SelectedItems[0].SubItems[6].Text;
                 btnupdate.Enabled = true;
+                txtSelectedBook.Text = listView1.SelectedItems[0].SubItems[2].Text;
             }
             else
             {

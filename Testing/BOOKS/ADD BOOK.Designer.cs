@@ -49,6 +49,8 @@ namespace Testing.BOOKS
             this.label8 = new System.Windows.Forms.Label();
             this.txtpublisher = new System.Windows.Forms.TextBox();
             this.dtpyear = new System.Windows.Forms.DateTimePicker();
+            this.txtEBookFile = new System.Windows.Forms.TextBox();
+            this.btnAttach = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +61,7 @@ namespace Testing.BOOKS
             this.btnupdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnupdate.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
             this.btnupdate.ForeColor = System.Drawing.Color.White;
-            this.btnupdate.Location = new System.Drawing.Point(13, 354);
+            this.btnupdate.Location = new System.Drawing.Point(13, 396);
             this.btnupdate.Name = "btnupdate";
             this.btnupdate.Size = new System.Drawing.Size(156, 33);
             this.btnupdate.TabIndex = 36;
@@ -164,7 +166,7 @@ namespace Testing.BOOKS
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(188, 354);
+            this.btnAdd.Location = new System.Drawing.Point(188, 396);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(161, 33);
             this.btnAdd.TabIndex = 23;
@@ -210,7 +212,7 @@ namespace Testing.BOOKS
             this.btnArchive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnArchive.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
             this.btnArchive.ForeColor = System.Drawing.Color.White;
-            this.btnArchive.Location = new System.Drawing.Point(188, 354);
+            this.btnArchive.Location = new System.Drawing.Point(188, 396);
             this.btnArchive.Name = "btnArchive";
             this.btnArchive.Size = new System.Drawing.Size(161, 33);
             this.btnArchive.TabIndex = 40;
@@ -271,12 +273,37 @@ namespace Testing.BOOKS
             this.dtpyear.Size = new System.Drawing.Size(245, 25);
             this.dtpyear.TabIndex = 44;
             // 
+            // txtEBookFile
+            // 
+            this.txtEBookFile.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtEBookFile.Location = new System.Drawing.Point(156, 344);
+            this.txtEBookFile.Name = "txtEBookFile";
+            this.txtEBookFile.Size = new System.Drawing.Size(193, 25);
+            this.txtEBookFile.TabIndex = 45;
+            // 
+            // btnAttach
+            // 
+            this.btnAttach.BackColor = System.Drawing.Color.LightGray;
+            this.btnAttach.FlatAppearance.BorderSize = 0;
+            this.btnAttach.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAttach.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAttach.ForeColor = System.Drawing.Color.Black;
+            this.btnAttach.Location = new System.Drawing.Point(12, 344);
+            this.btnAttach.Name = "btnAttach";
+            this.btnAttach.Size = new System.Drawing.Size(131, 33);
+            this.btnAttach.TabIndex = 47;
+            this.btnAttach.Text = "Attach E-Book File:";
+            this.btnAttach.UseVisualStyleBackColor = false;
+            this.btnAttach.Click += new System.EventHandler(this.btnAttach_Click);
+            // 
             // ADD_BOOK
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(365, 399);
+            this.ClientSize = new System.Drawing.Size(365, 447);
+            this.Controls.Add(this.btnAttach);
+            this.Controls.Add(this.txtEBookFile);
             this.Controls.Add(this.dtpyear);
             this.Controls.Add(this.txtpublisher);
             this.Controls.Add(this.label8);
@@ -330,5 +357,7 @@ namespace Testing.BOOKS
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtpublisher;
         private System.Windows.Forms.DateTimePicker dtpyear;
+        private System.Windows.Forms.TextBox txtEBookFile;
+        private System.Windows.Forms.Button btnAttach;
     }
 }

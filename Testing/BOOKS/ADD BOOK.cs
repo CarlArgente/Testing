@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -137,8 +138,7 @@ namespace Testing.BOOKS
                 txtbarcode.Text = ucBooks.barcode_num;
                 txtbarcode.Enabled = false;
             }
-        }
-
+        }      
         private void btnAdd_Click(object sender, EventArgs e)
         {
             string publisher;
@@ -154,7 +154,7 @@ namespace Testing.BOOKS
                 txtbarcode.Enabled = false;
             }
 
-            if (txttitle.Text == "" || txtqty.Text == "" || txtauthor.Text == "")
+            if (txttitle.Text == "" || txtqty.Text == "" || txtauthor.Text == "" || txtEBookFile.Text == "")
             {
                 MessageBox.Show(this, "Please fill-up all fields to continue.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -166,9 +166,15 @@ namespace Testing.BOOKS
             else
             {
                 publisher = txtpublisher.Text;
-            } 
-            sql.Query($"insert into books_tb (title, author, category, qty, total, barcode_number, bcount, books_tb.archive, publisher, year) values" +
-                   $"('{txttitle.Text}','{txtauthor.Text}','{cmbcategory.Text}','{int.Parse(txtqty.Text)}', '{int.Parse(txtqty.Text)}', '{barcodenum}', '{bcount}', '{"OK"}', '{publisher}', '{dtpyear.Value.ToString("yyyy")}')");
+            }
+
+            string filePath = path;
+            // Converts text file(.txt) into byte[]
+            byte[] fileData = File.ReadAllBytes(filePath);
+            sql.AddParam("@fileData", fileData);
+
+            sql.Query($"insert into books_tb (pdf_file,title, author, category, qty, total, barcode_number, bcount, books_tb.archive, publisher, year) values" +
+                   $"(@fileData,'{txttitle.Text}','{txtauthor.Text}','{cmbcategory.Text}','{int.Parse(txtqty.Text)}', '{int.Parse(txtqty.Text)}', '{barcodenum}', '{bcount}', '{"OK"}', '{publisher}', '{dtpyear.Value.ToString("yyyy")}')");
             if (sql.HasException(true))return ;
             MessageBox.Show(this, "Book added successfully!", "Books", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
@@ -276,6 +282,17 @@ namespace Testing.BOOKS
             {
                 return;
             }
+        }
+        String path;
+        private void btnAttach_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Pdf Files|*.pdf";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                path = dialog.FileName;
+            }
+            txtEBookFile.Text = path;
         }
     }
     
