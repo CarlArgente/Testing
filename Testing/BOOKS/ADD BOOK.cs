@@ -251,9 +251,6 @@ namespace Testing.BOOKS
             }
             misc.cat_to_cmb(cmbcategory);
         }
-
-
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             this.Close();
