@@ -10,8 +10,43 @@ using System.Windows.Forms;
 
 namespace Testing.SETTINGS
 {
-    public partial class frmSettings : Form
+    public partial class Users : Form
     {
+        SQLControl sql = new SQLControl();
+        private void reset()
+        {
+            txtUsername.Text = "";
+            txtName.Text = "";
+            txtsearch.Text = "";
+            cmbRole.SelectedIndex = -1;
+            cmbStatus.SelectedIndex = -1;
+            btnupdate.Enabled = false;
+            btnadd.Enabled = true;
+            txtid.Text = "XXXX-XXXX";
+        }
+        private void load_user(string search = "")
+        {
+            listView1.Items.Clear();
+            sql.Query($"select * from user_tb where user_id like '%{search}%' or lname like '%{search}%' or fname like '%{search}%' ");
+            if (sql.HasException(true)) return;
+            if (sql.DBDT.Rows.Count > 0)
+            {
+                foreach (DataRow dr in sql.DBDT.Rows)
+                {
+                    ListViewItem item = new ListViewItem(Convert.ToString(dr["user_id"]));
+                    ListViewItem.ListViewSubItem[] subitems = new ListViewItem.ListViewSubItem[]
+                    {
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["name"])),
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["username"])),
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["role"])),
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["status"]))
+                    };
+                    item.SubItems.AddRange(subitems);
+                    listView1.Items.Add(item);
+                }
+            }
+        }
+        #region
         //DROP SHADOW START HERE===================================================================================
         private bool Drag;
         private int MouseX;
@@ -109,61 +144,72 @@ namespace Testing.SETTINGS
         }
         //DROP SHADOW ENDS HERE===================================================================================
 
-        public frmSettings()
+        #endregion
+        public Users()
         {
             InitializeComponent();
+            load_user();
+            reset();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void btnadd_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (frmpenalty frm = new frmpenalty())
+            using (AddUsers frm = new AddUsers())
             {
                 frm.ShowDialog();
+                load_user();
+                reset();
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void txtsearch_TextChanged(object sender, EventArgs e)
         {
-            using (frmsection frm = new frmsection())
+            load_user(txtsearch.Text);
+        }
+        int user_id;
+       
+        private void listView1_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
             {
-                frm.ShowDialog();
+                btnadd.Enabled = false;
+                btnupdate.Enabled = true;
+                user_id = int.Parse(listView1.SelectedItems[0].SubItems[0].Text);
+                txtid.Text = $"{user_id: 0000}";
+                txtName.Text = listView1.SelectedItems[0].SubItems[1].Text;
+                txtUsername.Text = listView1.SelectedItems[0].SubItems[2].Text;
+                cmbRole.SelectedItem = listView1.SelectedItems[0].SubItems[3].Text;
+                cmbStatus.SelectedItem = listView1.SelectedItems[0].SubItems[4].Text;
+            }
+            else
+            {
+                btnadd.Enabled = false;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnupdate_Click(object sender, EventArgs e)
         {
-            using (frmYear frm = new frmYear())
+            DialogResult result = MessageBox.Show("You are about to update the selected user. Proceed?", "Confirmation", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                frm.ShowDialog();
+                sql.Query($"update user_tb set name = '{txtName.Text}', username = '{txtUsername.Text}', role = '{cmbRole.SelectedItem.ToString()}', status = '{cmbStatus.SelectedItem.ToString()}' where user_id = {user_id} ");
+                if (sql.HasException(true)) return;
+                load_user();
+                reset();
+                MessageBox.Show(this, "User updated successfully!", "Users", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnclear_Click(object sender, EventArgs e)
         {
-            using (frmcategory frm = new frmcategory())
+            DialogResult result = MessageBox.Show("You are about to permanently removed this user. Proceed?", "Confirmation", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                frm.ShowDialog();
-            }
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            using (frmremarks frm = new frmremarks())
-            {
-                frm.ShowDialog();
-            }
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            using (Users frm = new Users())
-            {
-                frm.ShowDialog();
+                sql.Query($"delete from user_tb where user_id = {user_id}");
+                if (sql.HasException(true)) return;
+                load_user();
+                reset();
+                MessageBox.Show(this, "User removed successfully!", "Users", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

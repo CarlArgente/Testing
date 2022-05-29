@@ -34,7 +34,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -319,6 +319,12 @@
     <Compile Include="SETTINGS\frmYear.Designer.cs">
       <DependentUpon>frmYear.cs</DependentUpon>
     </Compile>
+    <Compile Include="SETTINGS\Users.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SETTINGS\Users.Designer.cs">
+      <DependentUpon>Users.cs</DependentUpon>
+    </Compile>
     <Compile Include="SQLControl.cs" />
     <Compile Include="STUDENTS\ADD MISC.cs">
       <SubType>Form</SubType>
@@ -442,6 +448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SETTINGS\frmYear.resx">
       <DependentUpon>frmYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SETTINGS\Users.resx">
+      <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="STUDENTS\ADD MISC.resx">
       <DependentUpon>ADD MISC.cs</DependentUpon>
