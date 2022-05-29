@@ -17,6 +17,7 @@ namespace Testing
 
         public static string user;
         private Button currentButton;
+        SQLControl sql = new SQLControl();
         public Main_Menu()
         {
             InitializeComponent();
@@ -201,10 +202,18 @@ namespace Testing
 
         private void btnsettings_Click(object sender, EventArgs e)
         {
-            using (Testing.SETTINGS.frmSettings frm = new SETTINGS.frmSettings())
+            if (sql.ReturnResult($"select role from user_tb where user_id{User.user_id}").Equals("ADMIN"))
             {
-                frm.ShowDialog();
+                using (Testing.SETTINGS.frmSettings frm = new SETTINGS.frmSettings())
+                {
+                    frm.ShowDialog();
+                }
             }
+            else
+            {
+                MessageBox.Show(this, "You have no permission on this module. Please contact your admin.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
         }
 
         private void button4_Click(object sender, EventArgs e)

@@ -7,19 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using Testing.BOOKS;
 
 namespace Testing
 {
-    public partial class Form1 : Form
+    public partial class LoginAsStudent : Form
     {
-       
-        dbconnect db = new dbconnect();
-        DataTable dt = new DataTable();
-        public Form1()
-        {
-            InitializeComponent();
-        }
         #region
         //DROP SHADOW START HERE===================================================================================
         private bool Drag;
@@ -119,96 +112,51 @@ namespace Testing
         //DROP SHADOW ENDS HERE===================================================================================
 
         #endregion
-        private void btnlogin_Click(object sender, EventArgs e)
-        {
-            if (txtpassword.Text == "" || txtusername.Text == "")
-            {
-                MessageBox.Show("Please fill up all fields", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                focus();
-                return;
-            }
-            try
-            {
-                string username = txtusername.Text;
-                string password = txtpassword.Text;
-                sql.Query($"select * from user_tb where username ='{username}' ");
-                if (sql.DBDT.Rows.Count > 0)
-                {
-                    foreach(DataRow dr in sql.DBDT.Rows)
-                    {
-                        if (password == dr["password"].ToString())
-                        {
-                            User.name = dr["fname"].ToString();
-                            User.user_id = int.Parse(dr["user_id"].ToString());
-                            using (Main_Menu frm = new Main_Menu())
-                            {
-                                Main_Menu.user = dr["fname"].ToString();
-                                this.Hide();
-                                frm.ShowDialog();
-                            }
-                        }
-                        else
-                            MessageBox.Show(this, "Invalid Username/ Password", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        focus();
-                    }
-                }
-                else
-                    MessageBox.Show(this, "Invalid Username/ Password", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                focus();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, ex.Message, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void focus()
-        {
-            txtusername.Clear();
-            txtpassword.Clear();
-            txtusername.Focus();
-        }
         SQLControl sql = new SQLControl();
-        private void Form1_Load(object sender, EventArgs e)
+        public LoginAsStudent()
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            txtpassword.Text = "";
-            txtusername.Text = "";
-            txtusername.Focus();
-        }
-
-        private void txtusername_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == (char)Keys.Enter)
-            {
-                btnlogin_Click(sender, e);
-            }
-        }
-
-        private void txtpassword_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == (char)Keys.Enter)
-            {
-                btnlogin_Click(sender, e);
-            }
-        }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Escape)
-            {
-                Application.Exit();
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
+            InitializeComponent();
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-            new LoginAsStudent().Show();
             this.Hide();
+            new Form1().Show();
+        }
+
+        private void btnlogin_Click(object sender, EventArgs e)
+        {
+            sql.Query($"SELECT * FROM student_tb WHERE student_id = {txtStudentID.Text}");
+            if (sql.HasException(true)) return;
+            if(sql.DBDT.Rows.Count > 0)
+            {
+                using (BookViewer frm = new BookViewer())
+                {
+                    this.Hide();
+                    frm.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show(this, "The student number is invalid/not exist.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtStudentID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStudentID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.Enter)
+            {
+                btnlogin_Click(sender, e);
+            }
         }
     }
 }
