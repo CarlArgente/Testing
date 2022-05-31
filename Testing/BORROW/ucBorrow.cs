@@ -209,7 +209,6 @@ namespace Testing.BORROW
         {
 
         }
-
         int penalty;
         private void issue()
         {
