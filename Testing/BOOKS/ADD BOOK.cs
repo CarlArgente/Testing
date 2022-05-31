@@ -171,13 +171,22 @@ namespace Testing.BOOKS
             string filePath = path;
             // Converts text file(.txt) into byte[]
             byte[] fileData = File.ReadAllBytes(filePath);
-            sql.AddParam("@fileData", fileData);
+            if (ImageByteArray != null)
+            {
+                sql.AddParam("@pic", ImageByteArray);
+                sql.AddParam("@fileData", fileData);
 
-            sql.Query($"insert into books_tb (pdf_file,title, author, category, qty, total, barcode_number, bcount, books_tb.archive, publisher, year) values" +
-                   $"(@fileData,'{txttitle.Text}','{txtauthor.Text}','{cmbcategory.Text}','{int.Parse(txtqty.Text)}', '{int.Parse(txtqty.Text)}', '{barcodenum}', '{bcount}', '{"OK"}', '{publisher}', '{dtpyear.Value.ToString("yyyy")}')");
-            if (sql.HasException(true))return ;
-            MessageBox.Show(this, "Book added successfully!", "Books", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Close();
+                sql.Query($"insert into books_tb (preview_image,pdf_file,title, author, category, qty, total, barcode_number, bcount, books_tb.archive, publisher, year) values" +
+                $"(@pic,@fileData,'{txttitle.Text}','{txtauthor.Text}','{cmbcategory.Text}','{int.Parse(txtqty.Text)}', '{int.Parse(txtqty.Text)}', '{barcodenum}', '{bcount}', '{"OK"}', '{publisher}', '{dtpyear.Value.ToString("yyyy")}')");
+                if (sql.HasException(true)) return;
+                MessageBox.Show(this, "Book added successfully!", "Books", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show(this, "The preview image is required!", "Books", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
 
         private void txtqty_KeyPress(object sender, KeyPressEventArgs e)
@@ -218,10 +227,26 @@ namespace Testing.BOOKS
                 cmbcategory.Text = ucBooks.cat;
                 txttitle.Text = ucBooks.title;
                 txtpublisher.Text = ucBooks.publisher;
+                button1.Visible = false;
                 DateTime dt;
                 DateTime.TryParseExact(ucBooks.year, "yyyy",null, System.Globalization.DateTimeStyles.None, out dt) ;
                 dtpyear.Value = dt;
                 txtqty.Focus();
+
+                sql.Query("SELECT preview_image FROM books_tb WHERE book_id='" + ucBooks.book_id + "'  ");
+                if (sql.HasException(true)) return;
+                if(sql.DBDT.Rows.Count > 0)
+                {
+                    foreach(DataRow dr in sql.DBDT.Rows)
+                    {
+                        if (!dr["preview_image"].Equals(DBNull.Value))
+                        {
+                            byte[] img = ((byte[])dr["preview_image"]);
+                            ImageByteArray = img;
+                            pbLogo.Image = Image.FromStream(new MemoryStream(img));
+                        }
+                    }
+                }
             }
 
         }
@@ -281,6 +306,7 @@ namespace Testing.BOOKS
             }
         }
         String path;
+        String strFilePath = "";
         private void btnAttach_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -290,6 +316,36 @@ namespace Testing.BOOKS
                 path = dialog.FileName;
             }
             txtEBookFile.Text = path;
+        }
+        Byte[] ImageByteArray;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                strFilePath = dialog.FileName;
+                pbLogo.Image = new Bitmap(strFilePath);
+            }
+            //for updating image
+            if (strFilePath == "")
+            {
+                if (ImageByteArray != null)
+                {
+                    if (ImageByteArray.Length != 0)
+                    {
+                        ImageByteArray = new byte[] { };
+                    }
+                }
+            }
+            else
+            {
+                Image temp = new Bitmap(strFilePath);
+                MemoryStream stream = new MemoryStream();
+                temp.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                ImageByteArray = stream.ToArray();
+                
+            }
         }
     }
     

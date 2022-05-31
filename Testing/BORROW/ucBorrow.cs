@@ -170,7 +170,6 @@ namespace Testing.BORROW
             reset();
             sql.Query("DELETE FROM temp_borrow_tb");
             if (sql.HasException(true)) return;
-
         }
         SQLControl sql = new SQLControl();
         private void update_stocks()
@@ -222,14 +221,24 @@ namespace Testing.BORROW
             }
             update_stocks();
         }
+
         private void btnselect_Click(object sender, EventArgs e)
         {
-            btnselectbook.Enabled = true;
-            lblborrowedbooks.Enabled = true;
-            listView1.Enabled = true;
-            txtstudentid.Visible = false;
-            btnfind.Visible = false;
-            btnselect.Enabled = false;
+            int borrowCount = int.Parse(sql.ReturnResult($"SELECT COUNT(*) as total FROM books_tb INNER JOIN transac_tb ON books_tb.book_id = transac_tb.book_id " +
+                $"where student_id = {txtstudentid.Text} and status like 'Ongoing' ")); 
+            if (borrowCount < 5)
+            {
+                btnselectbook.Enabled = true;
+                lblborrowedbooks.Enabled = true;
+                listView1.Enabled = true;
+                txtstudentid.Visible = false;
+                btnfind.Visible = false;
+                btnselect.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Please return book first.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnclear_Click(object sender, EventArgs e)
@@ -266,6 +275,7 @@ namespace Testing.BORROW
             }
             catch (Exception)
             {
+
             }
             finally
             {

@@ -180,6 +180,8 @@ namespace Testing.BOOKS
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             load_items(textBox1.Text);
+            pbLogo.Image = null;
+            txtSelectedBook.Text = "";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -220,12 +222,33 @@ namespace Testing.BOOKS
         {
             Application.Exit();
         }
-
+        Byte[] ImageByteArray;
         private void listView1_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
             {
                 txtSelectedBook.Text = listView1.SelectedItems[0].SubItems[2].Text;
+
+                //
+                sql.Query("SELECT preview_image FROM books_tb WHERE book_id='" + int.Parse(listView1.SelectedItems[0].SubItems[0].Text) + "'  ");
+                if (sql.HasException(true)) return;
+                if (sql.DBDT.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in sql.DBDT.Rows)
+                    {
+                        if (!dr["preview_image"].Equals(DBNull.Value))
+                        {
+                            byte[] img = ((byte[])dr["preview_image"]);
+                            ImageByteArray = img;
+                            pbLogo.Image = Image.FromStream(new MemoryStream(img));
+                        }
+                        else
+                        {
+                            pbLogo.Image = null;
+                        }
+                    }
+                }
+
             }
 
         }

@@ -51,7 +51,12 @@ namespace Testing.BOOKS
             this.dtpyear = new System.Windows.Forms.DateTimePicker();
             this.txtEBookFile = new System.Windows.Forms.TextBox();
             this.btnAttach = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // btnupdate
@@ -223,7 +228,7 @@ namespace Testing.BOOKS
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Testing.Properties.Resources.close;
-            this.pictureBox1.Location = new System.Drawing.Point(316, 6);
+            this.pictureBox1.Location = new System.Drawing.Point(573, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(45, 40);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -296,12 +301,47 @@ namespace Testing.BOOKS
             this.btnAttach.UseVisualStyleBackColor = false;
             this.btnAttach.Click += new System.EventHandler(this.btnAttach_Click);
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.LightGray;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(376, 344);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(230, 33);
+            this.button1.TabIndex = 49;
+            this.button1.Text = "Upload Preview Image";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.pbLogo);
+            this.panel1.Location = new System.Drawing.Point(376, 65);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(230, 273);
+            this.panel1.TabIndex = 50;
+            // 
+            // pbLogo
+            // 
+            this.pbLogo.Location = new System.Drawing.Point(3, 3);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(224, 265);
+            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLogo.TabIndex = 49;
+            this.pbLogo.TabStop = false;
+            // 
             // ADD_BOOK
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(365, 447);
+            this.ClientSize = new System.Drawing.Size(622, 447);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAttach);
             this.Controls.Add(this.txtEBookFile);
             this.Controls.Add(this.dtpyear);
@@ -330,6 +370,8 @@ namespace Testing.BOOKS
             this.Text = "ADD_BOOK";
             this.Load += new System.EventHandler(this.ADD_BOOK_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,5 +401,8 @@ namespace Testing.BOOKS
         private System.Windows.Forms.DateTimePicker dtpyear;
         private System.Windows.Forms.TextBox txtEBookFile;
         private System.Windows.Forms.Button btnAttach;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pbLogo;
     }
 }

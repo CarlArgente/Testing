@@ -202,7 +202,7 @@ namespace Testing
 
         private void btnsettings_Click(object sender, EventArgs e)
         {
-            if (sql.ReturnResult($"select role from user_tb where user_id{User.user_id}").Equals("ADMIN"))
+            if (sql.ReturnResult($"select role from user_tb where user_id = {User.user_id}" ).Equals("ADMIN"))
             {
                 using (Testing.SETTINGS.frmSettings frm = new SETTINGS.frmSettings())
                 {

@@ -51,7 +51,9 @@ namespace Testing.BOOKS
             this.label2 = new System.Windows.Forms.Label();
             this.txtSelectedBook = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // listView1
@@ -73,7 +75,7 @@ namespace Testing.BOOKS
             this.listView1.Location = new System.Drawing.Point(9, 128);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(845, 307);
+            this.listView1.Size = new System.Drawing.Size(602, 307);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -255,11 +257,22 @@ namespace Testing.BOOKS
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // pbLogo
+            // 
+            this.pbLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbLogo.Location = new System.Drawing.Point(617, 128);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(237, 307);
+            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLogo.TabIndex = 22;
+            this.pbLogo.TabStop = false;
+            // 
             // ucBooks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.pbLogo);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtSelectedBook);
@@ -276,6 +289,7 @@ namespace Testing.BOOKS
             this.Load += new System.EventHandler(this.ucBooks_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,5 +318,6 @@ namespace Testing.BOOKS
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSelectedBook;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.PictureBox pbLogo;
     }
 }

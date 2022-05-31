@@ -77,8 +77,10 @@ namespace Testing.BOOKS
                     }
                 }
             }
+           
+         
         }
-
+        Byte[] ImageByteArray;
         private void ucBooks_Load(object sender, EventArgs e)
         {
             load_items();
@@ -87,6 +89,8 @@ namespace Testing.BOOKS
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             load_items(textBox1.Text);
+            pbLogo.Image = null;
+            txtSelectedBook.Text = "";
         }
         public static int book_id;
         public static string title, author, desc, cat;
@@ -156,6 +160,26 @@ namespace Testing.BOOKS
                 publisher = listView1.SelectedItems[0].SubItems[6].Text;
                 btnupdate.Enabled = true;
                 txtSelectedBook.Text = listView1.SelectedItems[0].SubItems[2].Text;
+
+                //
+                sql.Query("SELECT preview_image FROM books_tb WHERE book_id='" + int.Parse(listView1.SelectedItems[0].SubItems[0].Text) + "'  ");
+                if (sql.HasException(true)) return;
+                if (sql.DBDT.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in sql.DBDT.Rows)
+                    {
+                        if (!dr["preview_image"].Equals(DBNull.Value))
+                        {
+                            byte[] img = ((byte[])dr["preview_image"]);
+                            ImageByteArray = img;
+                            pbLogo.Image = Image.FromStream(new MemoryStream(img));
+                        }
+                        else
+                        {
+                            pbLogo.Image = null;
+                        }
+                    }
+                }
             }
             else
             {
