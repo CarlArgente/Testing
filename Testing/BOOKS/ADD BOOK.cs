@@ -283,27 +283,39 @@ namespace Testing.BOOKS
 
         private void btnArchive_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to add book " + "\"" + txttitle.Text + "\"" + " to archived?", "Confirmation", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.Yes)
+            //checker if the book is borrowed
+            int book_id = int.Parse(sql.ReturnResult($"select book_id FROM books_tb where barcode_number = '{txtbarcode.Text}' "));
+            sql.Query($"select book_id from transac_tb where book_id={book_id} and status='Ongoing' ");
+            if (sql.HasException(true)) return;
+            if(sql.DBDT.Rows.Count > 0)
             {
-                using (BOOKS.frmremarks frm = new BOOKS.frmremarks())
+                MessageBox.Show(this, "You cannot archieve this book!", "Books", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to add book " + "\"" + txttitle.Text + "\"" + " to archived?", "Confirmation", MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
                 {
-                    frm.ShowDialog();
-                }
-                sql.Query($"update books_tb set books_tb.archive = '{"Archived"}', remarks = '{frmremarks.remarks}' where book_id = '{ucBooks.book_id}'");
-                if (sql.HasException(true)) return;
-                MessageBox.Show(this, "Book archived successfully!", "Books", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Close();
+                    using (BOOKS.frmremarks frm = new BOOKS.frmremarks())
+                    {
+                        frm.ShowDialog();
+                    }
+                    sql.Query($"update books_tb set books_tb.archive = '{"Archived"}', remarks = '{frmremarks.remarks}' where book_id = '{ucBooks.book_id}'");
+                    if (sql.HasException(true)) return;
+                    MessageBox.Show(this, "Book archived successfully!", "Books", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
 
+                }
+                else if (result == DialogResult.No)
+                {
+                    return;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
             }
-            else if (result == DialogResult.No)
-            {
-                return;
-            }
-            else if (result == DialogResult.Cancel)
-            {
-                return;
-            }
+          
         }
         String path;
         String strFilePath = "";
