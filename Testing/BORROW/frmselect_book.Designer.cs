@@ -71,13 +71,13 @@ namespace Testing.STUDENTS
             this.btnsearchID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(164)))), ((int)(((byte)(203)))));
             this.btnsearchID.FlatAppearance.BorderSize = 0;
             this.btnsearchID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnsearchID.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
+            this.btnsearchID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnsearchID.ForeColor = System.Drawing.Color.White;
             this.btnsearchID.Location = new System.Drawing.Point(12, 55);
             this.btnsearchID.Name = "btnsearchID";
             this.btnsearchID.Size = new System.Drawing.Size(173, 33);
             this.btnsearchID.TabIndex = 48;
-            this.btnsearchID.Text = "Search Barcode";
+            this.btnsearchID.Text = "Search Barcode or title";
             this.btnsearchID.UseVisualStyleBackColor = false;
             this.btnsearchID.Click += new System.EventHandler(this.btnsearchID_Click);
             // 

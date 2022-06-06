@@ -265,7 +265,7 @@ namespace Testing.RETURN
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.Red;
+            this.button3.BackColor = System.Drawing.Color.Blue;
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
@@ -274,7 +274,7 @@ namespace Testing.RETURN
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(102, 31);
             this.button3.TabIndex = 71;
-            this.button3.Text = "Reset";
+            this.button3.Text = "Clear";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 

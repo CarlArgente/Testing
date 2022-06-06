@@ -12,6 +12,7 @@ namespace Testing.RETURN
 {
     public partial class frmReturn_condition : Form
     {
+        #region
         //DROP SHADOW START HERE===================================================================================
         private bool Drag;
         private int MouseX;
@@ -109,6 +110,7 @@ namespace Testing.RETURN
         }
         //DROP SHADOW ENDS HERE===================================================================================
 
+        #endregion
         string _title, _due;
         int _penalty;
 
@@ -142,6 +144,11 @@ namespace Testing.RETURN
                 txtpenalty.Text = "0";
             }
             else
+            {
+                txtpenalty.Text = "₱" + _penalty.ToString("N");
+            }
+            DateTime dueDate = DateTime.Parse(_due);
+            if (dueDate < DateTime.Now)
             {
                 txtpenalty.Text = "₱" + _penalty.ToString("N");
             }

@@ -14,6 +14,7 @@ namespace Testing.BOOKS
     public partial class frmArchive : Form
     {
         SQLControl sql = new SQLControl();
+        #region
         //DROP SHADOW START HERE===================================================================================
         private bool Drag;
         private int MouseX;
@@ -111,6 +112,7 @@ namespace Testing.BOOKS
         }
         //DROP SHADOW ENDS HERE===================================================================================
 
+        #endregion
         public frmArchive()
         {
             InitializeComponent();

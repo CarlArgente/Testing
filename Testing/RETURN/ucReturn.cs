@@ -91,6 +91,7 @@ namespace Testing.RETURN
         int penaltyy;
         private int penalty()
         {
+
             sql.Query($"select penalty from misc_tb where penalty is NOT NULL");
             if(sql.DBDT.Rows.Count == 0)
             {
@@ -104,6 +105,12 @@ namespace Testing.RETURN
         static string penaltyyy;
         string title, due;
         int aw;
+        double HowManyDaysFromToday(DateTime appointment)
+        {
+            var today = DateTime.Today; //like DateTime.Now but with no time aspect
+            var appDay = appointment.Date;
+            return appDay.Subtract(today).TotalDays;
+        }
         private void lsttransac_Click(object sender, EventArgs e)
         {
             if (lstnames.SelectedItems.Count > 0)
@@ -119,16 +126,26 @@ namespace Testing.RETURN
                 d3 = String.Format("{0:t}", lsttransac.SelectedItems[0].SubItems[4].Text);
                 TimeSpan t = d1 - d2;
                 double daycount = Math.Round(t.TotalDays);
+
                 penalty();               
                 string a;
+
                 penaltyyy = (Convert.ToInt32(daycount) * penaltyy).ToString();
+
                 if (d1 == d2)
                 {
                     aw = 0;
                 }
                 else
                 {
-                    aw = (Convert.ToInt32(daycount) * penaltyy);
+                    if (!sql.ReturnResult($"SELECT penalty FROM transac_tb where transac_id = {lsttransac.SelectedItems[0].SubItems[0].Text}").Equals(""))
+                    {
+                        aw = (Convert.ToInt32(daycount) * int.Parse(sql.ReturnResult($"SELECT penalty FROM transac_tb where transac_id = {lsttransac.SelectedItems[0].SubItems[0].Text} ")));
+                    }
+                    else
+                    {
+                        aw = 0;
+                    }
                 }
                 button1.Enabled = true;
             }

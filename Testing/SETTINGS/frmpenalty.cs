@@ -119,7 +119,9 @@ namespace Testing.SETTINGS
         SQLControl sql = new SQLControl();
         private void btnsubmit_Click(object sender, EventArgs e)
         {
-            sql.Query($"update misc_tb set penalty='{int.Parse(textBox2.Text)}'where penalty is NOT NULL");
+            sql.Query($"update misc_tb set penalty='{int.Parse(textBox2.Text)}' where penalty is NOT NULL");
+            sql.Query($"update transac_tb set penalty='{int.Parse(textBox2.Text)}' where date_due < '{DateTime.Now}' and status='Ongoing' ");
+
             if (sql.HasException(true)) return;
             MessageBox.Show(this, "Penalty updated successfully!", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
             load();
@@ -127,7 +129,6 @@ namespace Testing.SETTINGS
         private void load()
         {
             textBox2.Text = "";
-            db.CloseConnection();
             sql.Query($"select penalty from misc_tb where penalty IS NOT NULL");
             if (sql.HasException(true)) return;
             if(sql.DBDT.Rows.Count > 0)

@@ -184,7 +184,7 @@ namespace Testing.STUDENTS
         public void load_items(string search = "")
         {
             listbook.Items.Clear();
-            sql.Query($"select * from books_tb where books_tb.archive = '{"OK"}' and barcode_number like '%{search}%'");
+            sql.Query($"select * from books_tb where books_tb.archive = '{"OK"}' and barcode_number like '%{search}%' or title like '%{search}%' ");
             if (sql.HasException(true)) return;
             if(sql.DBDT.Rows.Count > 0)
             {

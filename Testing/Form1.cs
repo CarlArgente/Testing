@@ -142,7 +142,7 @@ namespace Testing
                             User.user_id = int.Parse(dr["user_id"].ToString());
                             using (Main_Menu frm = new Main_Menu())
                             {
-                                Main_Menu.user = dr["fname"].ToString();
+                                Main_Menu.user = dr["username"].ToString();
                                 this.Hide();
                                 frm.ShowDialog();
                             }

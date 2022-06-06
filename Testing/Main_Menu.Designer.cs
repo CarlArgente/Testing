@@ -100,11 +100,11 @@ namespace Testing
             // 
             this.lblwelcome.AutoSize = true;
             this.lblwelcome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(191)))), ((int)(((byte)(122)))));
-            this.lblwelcome.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, System.Drawing.FontStyle.Bold);
+            this.lblwelcome.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblwelcome.ForeColor = System.Drawing.Color.White;
-            this.lblwelcome.Location = new System.Drawing.Point(7, 113);
+            this.lblwelcome.Location = new System.Drawing.Point(19, 113);
             this.lblwelcome.Name = "lblwelcome";
-            this.lblwelcome.Size = new System.Drawing.Size(149, 40);
+            this.lblwelcome.Size = new System.Drawing.Size(127, 37);
             this.lblwelcome.TabIndex = 10;
             this.lblwelcome.Text = "Welcome";
             // 
