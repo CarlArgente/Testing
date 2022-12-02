@@ -184,7 +184,7 @@ namespace Testing.STUDENTS
         public void load_items(string search = "")
         {
             listbook.Items.Clear();
-            sql.Query($"select * from books_tb where books_tb.archive = '{"OK"}' and barcode_number like '%{search}%' or title like '%{search}%' ");
+            sql.Query($"select * from books_tb where books_tb.archive = 'OK' and barcode_number like '%{search}%' ");
             if (sql.HasException(true)) return;
             if(sql.DBDT.Rows.Count > 0)
             {
@@ -204,6 +204,30 @@ namespace Testing.STUDENTS
                     listbook.Items.Add(item);
                 }
             }
+            else
+            {
+                sql.Query($"select * from books_tb where books_tb.archive = 'OK' and title like '%{search}%' ");
+                if (sql.HasException(true)) return;
+                if (sql.DBDT.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in sql.DBDT.Rows)
+                    {
+                        ListViewItem item = new ListViewItem(Convert.ToString(dr["book_id"]));
+                        ListViewItem.ListViewSubItem[] subitems = new ListViewItem.ListViewSubItem[]
+                        {
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["barcode_number"])),
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["title"])),
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["author"])),
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["qty"])),
+                        new ListViewItem.ListViewSubItem(item, Convert.ToString(dr["total"]))
+
+                        };
+                        item.SubItems.AddRange(subitems);
+                        listbook.Items.Add(item);
+                    }
+                }
+            }
+        
         }
 
         private void btnsearchID_Click(object sender, EventArgs e)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -228,9 +229,10 @@ namespace Testing.BOOKS
                 txttitle.Text = ucBooks.title;
                 txtpublisher.Text = ucBooks.publisher;
                 button1.Visible = false;
+
                 DateTime dt;
-                DateTime.TryParseExact(ucBooks.year, "yyyy",null, System.Globalization.DateTimeStyles.None, out dt) ;
-                dtpyear.Value = dt;
+                //DateTime.TryParseExact(ucBooks.year, "yyyy",null, System.Globalization.DateTimeStyles.None, out dt) ;
+                //dtpyear.Value = dt;
                 txtqty.Focus();
 
                 sql.Query("SELECT preview_image FROM books_tb WHERE book_id='" + ucBooks.book_id + "'  ");

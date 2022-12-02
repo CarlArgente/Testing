@@ -11,10 +11,10 @@ namespace Testing
 {
     public class SQLControl
     {
-        public static string constring = @"Server=tcp:librarysystem.database.windows.net,1433;Initial Catalog=db_library;Persist Security Info=False;User ID=sqlserver;
-        Password=library123!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        //public static string constring = @"Server=tcp:librarysystem.database.windows.net,1433;Initial Catalog=db_library;Persist Security Info=False;User ID=sqlserver;
+        //Password=library123!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        //public static string constring = @"Server=.;Database=db_library;User ID=sa;Password=123123";
+        public static string constring = @"Server=.;Database=dbLibrary;User ID=sa;Password=123123";
 
         public SqlConnection DBCon = new SqlConnection(constring);
         private SqlCommand DBCmd;

@@ -27,6 +27,7 @@ namespace Testing
             tx_count();
             book_count();
             return_lst();
+
             borrow_list();
         }
         
@@ -105,6 +106,7 @@ namespace Testing
             {
                 lbltxcount.Text = sql.ReturnResult($"select count(transac_id) from transac_tb where MONTH(date_issue) = MONTH(getDate()) ");
             }
+
         }
     }
 }

@@ -160,7 +160,6 @@ namespace Testing.BOOKS
                 publisher = listView1.SelectedItems[0].SubItems[6].Text;
                 btnupdate.Enabled = true;
                 txtSelectedBook.Text = listView1.SelectedItems[0].SubItems[2].Text;
-
                 //
                 sql.Query("SELECT preview_image FROM books_tb WHERE book_id='" + int.Parse(listView1.SelectedItems[0].SubItems[0].Text) + "'  ");
                 if (sql.HasException(true)) return;
