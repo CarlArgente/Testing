@@ -47,11 +47,12 @@ namespace Testing.SETTINGS
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtsearch = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbRole = new System.Windows.Forms.ComboBox();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmbRole = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -176,6 +177,7 @@ namespace Testing.SETTINGS
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(237)))));
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -243,6 +245,11 @@ namespace Testing.SETTINGS
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.Click += new System.EventHandler(this.listView1_Click);
             // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Status";
+            this.columnHeader5.Width = 100;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.cmbStatus);
@@ -264,17 +271,6 @@ namespace Testing.SETTINGS
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "User Information";
-            // 
-            // cmbRole
-            // 
-            this.cmbRole.FormattingEnabled = true;
-            this.cmbRole.Items.AddRange(new object[] {
-            "ADMIN",
-            "LIBRARY STAFF"});
-            this.cmbRole.Location = new System.Drawing.Point(17, 174);
-            this.cmbRole.Name = "cmbRole";
-            this.cmbRole.Size = new System.Drawing.Size(178, 26);
-            this.cmbRole.TabIndex = 25;
             // 
             // cmbStatus
             // 
@@ -298,10 +294,31 @@ namespace Testing.SETTINGS
             this.label6.TabIndex = 26;
             this.label6.Text = "Status";
             // 
-            // columnHeader5
+            // cmbRole
             // 
-            this.columnHeader5.Text = "Status";
-            this.columnHeader5.Width = 100;
+            this.cmbRole.FormattingEnabled = true;
+            this.cmbRole.Items.AddRange(new object[] {
+            "ADMIN",
+            "LIBRARY STAFF"});
+            this.cmbRole.Location = new System.Drawing.Point(17, 174);
+            this.cmbRole.Name = "cmbRole";
+            this.cmbRole.Size = new System.Drawing.Size(178, 26);
+            this.cmbRole.TabIndex = 25;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(237)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(829, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 33);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "X";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Users
             // 
@@ -352,5 +369,6 @@ namespace Testing.SETTINGS
         private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -212,5 +212,10 @@ namespace Testing.SETTINGS
                 MessageBox.Show(this, "User removed successfully!", "Users", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

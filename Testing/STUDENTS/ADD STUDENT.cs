@@ -177,7 +177,6 @@ namespace Testing.STUDENTS
                 frm.ShowDialog();
             }
             misc.year_to_cmb(cmbyear);
-            
         }
 
         private void lblsection_Click(object sender, EventArgs e)

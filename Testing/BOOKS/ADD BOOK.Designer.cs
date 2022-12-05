@@ -367,7 +367,7 @@ namespace Testing.BOOKS
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ADD_BOOK";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ADD_BOOK";
+            this.Text = "S";
             this.Load += new System.EventHandler(this.ADD_BOOK_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);

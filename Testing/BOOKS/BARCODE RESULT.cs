@@ -139,7 +139,7 @@ namespace Testing.BOOKS
                     timer1.Stop();
                     txtqr.Text = result.ToString();
                     groupBox1.Enabled = true;
-                    btnAdd.Enabled = true;                 
+                    btnAdd.Enabled = true;
                     if (captureDevice.IsRunning)
                     {
                         captureDevice.Stop();
