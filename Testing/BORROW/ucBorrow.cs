@@ -224,7 +224,7 @@ namespace Testing.BORROW
         private void btnselect_Click(object sender, EventArgs e)
         {
             int borrowCount = int.Parse(sql.ReturnResult($"SELECT COUNT(*) as total FROM books_tb INNER JOIN transac_tb ON books_tb.book_id = transac_tb.book_id " +
-                $"where student_id = {txtstudentid.Text} and status like 'Ongoing' ")); 
+                $"where student_id = {student_id} and status like 'Ongoing' ")); 
             if (borrowCount < 5)
             {
                 btnselectbook.Enabled = true;

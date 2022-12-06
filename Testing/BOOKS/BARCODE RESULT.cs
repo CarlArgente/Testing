@@ -154,7 +154,6 @@ namespace Testing.BOOKS
                 }
             }
         }
-
         private void reset()
         {
             txtauthor.Text = "";
@@ -181,9 +180,10 @@ namespace Testing.BOOKS
                     txtauthor.Text = (dr["author"].ToString());
                     cmbcategory.Text = (dr["category"].ToString());
                     txtpublisher.Text = (dr["publisher"].ToString());
-                    string year = (dr["year"].ToString());
-                    DateTime.TryParseExact(year, "yyyy", null, System.Globalization.DateTimeStyles.None, out date);
-                    dtpyear.Value = date;
+                    DateTime year = DateTime.Parse(dr["year"].ToString());
+                    //MessageBox.Show(year);
+                    //DateTime.TryParseExact(year, "yyyy", null, System.Globalization.DateTimeStyles.None, out date);
+                    dtpyear.Value = year;
                 }
             }
         }
